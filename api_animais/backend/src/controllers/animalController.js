@@ -10,6 +10,16 @@ export const animalController = {
         }
     },
 
+    async get(req, res){
+        try{
+            const animalEncontrado = await animalService.getAnimal(req.params.id)
+            res.json(animalEncontrado)
+        }catch(error){
+            const status = error.message === "Animal não encontrado" ? 404 : 400;
+            res.status(status).json({erro: error.message});
+        }
+    },
+
     async create(req, res){
         try{
             const novoAnimal = await animalService.createAnimal(req.body);
@@ -35,6 +45,17 @@ export const animalController = {
             const animalAtualizado = await animalService.patchAnimal(
                 req.params.id, req.body)
             res.json(animalAtualizado)
+        }catch(error){
+            const status = error.message === "Animal não encontrado" ? 404 : 400;
+            res.status(status).json({erro: error.message});
+        }
+    },
+
+    async delete(req, res) {
+        try{
+            const animalDeletado = await animalService.deleteAnimal(
+                req.params.id)
+            res.json(animalDeletado)
         }catch(error){
             const status = error.message === "Animal não encontrado" ? 404 : 400;
             res.status(status).json({erro: error.message});

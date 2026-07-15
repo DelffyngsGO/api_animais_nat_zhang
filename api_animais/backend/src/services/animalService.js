@@ -5,6 +5,22 @@ export const animalService = {
         return await animalRepository.findAll();
     },
 
+    async getAnimal(id){
+        const animalExistente = await animalRepository.findById(id);
+        if(!animalExistente){
+            throw new Error("Animal não encontrado");
+        }
+        return animalExistente;
+    },
+
+    async deleteAnimal(id){
+        const animalApagado = await animalRepository.delete(id);
+        if(!animalApagado){
+            throw new Error("Animal não encontrado");
+        }
+        return animalApagado;
+    },
+
     async createAnimal(animalRequisicao){
         if(animalRequisicao.idade<0){
             throw new Error('A idade do animal tem que ser maior do que 0.')

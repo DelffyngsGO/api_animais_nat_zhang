@@ -18,6 +18,11 @@ export const animalRepository = {
         return res.rows[0]
     },
 
+    async delete(id){
+        const res = await query('DELETE * FROM animal where id = $1;',[id]);
+        return res.rows[0]
+    },
+
     async update(id, animal){
         const { nome, especie, idade, status_saude } = animal;
         const sql = 'UPDATE animal SET nome = $1, especie = $2, idade = $3, status_saude = $4 WHERE id = $5 RETURNING *;';
