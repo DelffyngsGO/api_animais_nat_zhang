@@ -18,5 +18,13 @@ export const animalService = {
             throw new Error("Animal não encontrado");
         }
         return await animalRepository.update(id, animalRequisicao)
+    },
+
+    async patchAnimal(id, reqAnimal) {
+        const animalExistente = await animalRepository.findById(id);
+        if(!animalExistente){
+            throw new Error("Animal não encontrado");
+        }
+        return await animalRepository.update(id, animalRequisicao)
     }
 }

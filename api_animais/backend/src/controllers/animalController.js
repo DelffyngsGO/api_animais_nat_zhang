@@ -28,9 +28,16 @@ export const animalController = {
             const status = error.message === "Animal não encontrado" ? 404 : 400;
             res.status(status).json({erro: error.message});
         }
+    },
+
+    async patch(req, res) {
+        try{
+            const animalAtualizado = await animalService.patchAnimal(
+                req.params.id, req.body)
+            res.json(animalAtualizado)
+        }catch(error){
+            const status = error.message === "Animal não encontrado" ? 404 : 400;
+            res.status(status).json({erro: error.message});
+        }
     }
-
-
 }
-
-
